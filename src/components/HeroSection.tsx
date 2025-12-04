@@ -35,8 +35,8 @@ const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
                 نُعدّ لك عروض
-                <span className="text-primary"> البريزوتاسيون "Exposé" </span>
-                باحتراف
+                <span className="text-primary"> Mémoire, Exposé </span>
+                باحتراف 
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
                 خدمة متخصصة للطلاب الجامعيين - تصميم احترافي، تسليم سريع، وأسعار مناسبة للجميع

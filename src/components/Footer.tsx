@@ -1,8 +1,9 @@
-import { Phone, Instagram, Twitter, MessageCircle } from "lucide-react";
+import { Phone, Instagram, Twitter, MessageCircle, Facebook } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const whatsappNumber = "966501234567"; // Replace with actual number
+  const whatsappNumber = "+213660998924"; // Replace with actual number
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
   return (
@@ -29,7 +30,7 @@ const Footer = () => {
               تواصل عبر واتساب
             </a>
             <p className="mt-3 text-muted-foreground text-sm direction-ltr">
-              +966 50 123 4567
+              سنحاول الرد في أقرب وقت
             </p>
           </div>
 
@@ -41,7 +42,7 @@ const Footer = () => {
                 href="#"
                 className="w-10 h-10 bg-secondary-foreground/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
               >
-                <Twitter className="w-5 h-5" />
+                <Facebook className="w-5 h-5" />
               </a>
               <a
                 href="#"
@@ -55,7 +56,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-secondary-foreground/10 rounded-full flex items-center justify-center hover:bg-success hover:text-success-foreground transition-colors"
               >
-                <MessageCircle className="w-5 h-5" />
+                <FaTiktok className="w-5 h-5" />
               </a>
             </div>
           </div>
