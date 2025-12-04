@@ -4,42 +4,34 @@ import slide2 from "@/assets/slide-2.jpg";
 import slide3 from "@/assets/slide-3.jpg";
 import wordDoc from "@/assets/word-doc.jpg";
 import excelSheet from "@/assets/excel-sheet.jpg";
-import student1 from "@/assets/student-1.jpg";
+import { ShowImageContext } from "@/ShowImageProvider";
+import { useContext } from "react";
 
 const portfolioItems = [
-  { src: slide1, title: "عرض تسويق رقمي", category: "PowerPoint" },
-  { src: slide2, title: "تحليل بيانات المبيعات", category: "PowerPoint" },
-  { src: wordDoc, title: "تقرير بحثي أكاديمي", category: "Word" },
-  { src: excelSheet, title: "لوحة تحكم مالية", category: "Excel" },
-  { src: slide3, title: "خطة مشروع تخرج", category: "PowerPoint" },
-  { src: slide1, title: "استراتيجية الأعمال", category: "PowerPoint" },
+  { src: slide1, title: "عرض تسويق رقمي", category: "PowerPoint" ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-Tj6YpjhH_z1K4-SFnz4a8Z7zrbTK_CBdw&s'},
+  { src: slide2, title: "تحليل بيانات المبيعات", category: "PowerPoint" ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-Tj6YpjhH_z1K4-SFnz4a8Z7zrbTK_CBdw&s'},
+  { src: wordDoc, title: "تقرير بحثي أكاديمي", category: "Word" ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-Tj6YpjhH_z1K4-SFnz4a8Z7zrbTK_CBdw&s'},
+  { src: excelSheet, title: "لوحة تحكم مالية", category: "Excel" ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-Tj6YpjhH_z1K4-SFnz4a8Z7zrbTK_CBdw&s'},
+  { src: slide3, title: "خطة مشروع تخرج", category: "PowerPoint" ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-Tj6YpjhH_z1K4-SFnz4a8Z7zrbTK_CBdw&s'},
+  { src: slide1, title: "استراتيجية الأعمال", category: "PowerPoint" ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-Tj6YpjhH_z1K4-SFnz4a8Z7zrbTK_CBdw&s'},
 ];
 
 const testimonials = [
-  {
-    name: "أحمد محمد",
-    university: "جامعة الملك سعود",
-    rating: 5,
-    text: "خدمة ممتازة وتسليم سريع جداً! العرض كان احترافي وحصلت على درجة كاملة. شكراً لكم",
-    image: student1,
-  },
-  {
-    name: "سارة العتيبي",
-    university: "جامعة الأميرة نورة",
-    rating: 5,
-    text: "تعاملت معهم أكثر من مرة والنتيجة دائماً مبهرة. أنصح بهم كل زملائي في الجامعة",
-    image: student1,
-  },
-  {
-    name: "خالد الشمري",
-    university: "جامعة الإمام",
-    rating: 5,
-    text: "الدفع عند الاستلام أعطاني راحة بال. جودة العمل فاقت توقعاتي بصراحة",
-    image: student1,
-  },
+  // {
+  //   name: "أحمد محمد",
+  //   university: "جامعة الملك سعود",
+  //   rating: 5,
+  //   text: "خدمة ممتازة وتسليم سريع جداً! العرض كان احترافي وحصلت على درجة كاملة. شكراً لكم",
+  //   image: student1,
+  // }
 ];
 
-const PortfolioSection = () => {
+export default function PortfolioSection () {
+  const {state ,setState} = useContext(ShowImageContext)
+  const handleProjectOpen = (link: string) => {
+  setState({ isOpen: true, src: link })
+  }
+
   return (
     <section id="portfolio" className="py-20 bg-card">
       <div className="section-container">
@@ -57,6 +49,7 @@ const PortfolioSection = () => {
             <div
               key={index}
               className="group relative overflow-hidden rounded-2xl shadow-sm card-hover"
+              onClick={() => handleProjectOpen(item.link)}
             >
               <img
                 src={item.src}
@@ -122,4 +115,3 @@ const PortfolioSection = () => {
   );
 };
 
-export default PortfolioSection;

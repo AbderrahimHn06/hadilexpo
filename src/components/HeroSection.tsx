@@ -1,5 +1,6 @@
 import { FileText, Table, Presentation, CheckCircle, Clock, Wallet } from "lucide-react";
 import slide1 from "@/assets/slide-1.jpg";
+import videoGif from '../assets/videoGif.gif';
 
 const HeroSection = () => {
   const scrollToForm = () => {
@@ -34,7 +35,7 @@ const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
                 نُعدّ لك عروض
-                <span className="text-primary"> البرزنتيشن </span>
+                <span className="text-primary"> البريزوتاسيون "Exposé" </span>
                 باحتراف
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
@@ -80,28 +81,29 @@ const HeroSection = () => {
           <div className="relative animate-fade-up delay-200">
             <div className="relative rounded-2xl overflow-hidden shadow-lg bg-card">
               {/* Video placeholder - replace with actual video */}
-              <div className="aspect-video relative">
+              <div className="aspect-video relative" style={{background : 'black'}}>
                 <img
-                  src={slide1}
+                  src={videoGif}
                   alt="عرض باوربوينت احترافي"
                   className="w-full h-full object-cover"
                 />
+                
                 {/* Play button overlay */}
-                <div className="absolute inset-0 flex items-center justify-center bg-secondary/20">
+                {/* <div className="absolute inset-0 flex items-center justify-center bg-secondary/20">
                   <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-primary cursor-pointer hover:scale-110 transition-transform">
                     <svg className="w-8 h-8 text-primary-foreground mr-[-4px]" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             
             {/* Floating badge */}
-            <div className="absolute -bottom-4 -right-4 bg-card px-6 py-3 rounded-xl shadow-md animate-float">
-              <p className="text-sm text-muted-foreground">أكثر من</p>
-              <p className="text-2xl font-bold text-primary">500+</p>
-              <p className="text-sm text-muted-foreground">عميل راضٍ</p>
+            <div className="absolute -bottom-4 -right-4 bg-card px-6 py-3 rounded-xl shadow-md animate-float" style={{cursor: 'pointer'}} onClick={scrollToForm}>
+              <p className="text-sm text-muted-foreground"> أطلب</p>
+              <p className="text-2xl font-bold text-primary">الآن</p>
+              {/* <p className="text-sm text-muted-foreground">عميل راضٍ</p> */}
             </div>
           </div>
         </div>
