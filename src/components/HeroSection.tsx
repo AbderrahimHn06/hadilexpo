@@ -37,9 +37,11 @@ const HeroSection = () => {
                 نُعدّ لك عروض
                 <span className="text-primary"> Mémoire, Exposé </span>
                 باحتراف 
+                <span className="text-primary" style={{color: "red"}}> للبنات فقط </span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                خدمة متخصصة للطلاب الجامعيين - تصميم احترافي، تسليم سريع، وأسعار مناسبة للجميع
+              <span style={{fontWeight: 'bold' , color: 'black'}}>طالبة ماستر 1 في جامعة باجي مختار في الإقتصاد: </span>
+                خدمة متخصصة للطلاب الجامعيين "عنابة"- تصميم احترافي، تسليم سريع، وأسعار مناسبة للجميع
               </p>
             </div>
 
