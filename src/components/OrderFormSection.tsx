@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Send, Upload, CheckCircle, AlertCircle } from "lucide-react";
+import { Send, CheckCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
 
 const OrderFormSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fileName, setFileName] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -15,61 +15,61 @@ const OrderFormSection = () => {
     serviceType: "powerpoint",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFileName(file.name);
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      // Send email via EmailJS
+      await emailjs.send(
+        "service_4g01ish", // your service ID
+        "template_5vwl9z8", // your template ID
+        {
+          name: formData.name,
+          contact: formData.contact,
+          university: formData.university,
+          title: formData.title,
+          serviceType: formData.serviceType,
+          deadline: formData.deadline,
+          description: formData.description,
+        },
+        "YyhG_XdLE9h8CskJN" // your public key
+      );
 
-    // Create mailto link for email submission
-    const mailtoBody = `
-الاسم: ${formData.name}
-البريد/الهاتف: ${formData.contact}
-الجامعة: ${formData.university}
-عنوان المشروع: ${formData.title}
-نوع الخدمة: ${formData.serviceType}
-الموعد النهائي: ${formData.deadline}
+      toast({
+        title: "تم إرسال طلبك بنجاح!",
+        description: "سنتواصل معك في أقرب وقت ممكن",
+      });
 
-التفاصيل:
-${formData.description}
-
-الملف المرفق: ${fileName || "لا يوجد"}
-    `.trim();
-
-    const mailtoLink = `mailto:your-email@example.com?subject=طلب خدمة جديد - ${formData.title}&body=${encodeURIComponent(mailtoBody)}`;
-    
-    // Open email client
-    window.location.href = mailtoLink;
-
-    toast({
-      title: "تم إرسال طلبك بنجاح!",
-      description: "سنتواصل معك في أقرب وقت ممكن",
-    });
-
-    setIsSubmitting(false);
-    setFormData({
-      name: "",
-      contact: "",
-      university: "",
-      title: "",
-      description: "",
-      deadline: "",
-      serviceType: "powerpoint",
-    });
-    setFileName("");
+      // Reset form
+      setFormData({
+        name: "",
+        contact: "",
+        university: "",
+        title: "",
+        description: "",
+        deadline: "",
+        serviceType: "powerpoint",
+      });
+    } catch (error: any) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "حدث خطأ",
+        description: "فشل إرسال الطلب. حاول مرة أخرى.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -90,7 +90,10 @@ ${formData.description}
               {/* Row 1: Name & Contact */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     الاسم الكامل *
                   </label>
                   <input
@@ -105,7 +108,10 @@ ${formData.description}
                   />
                 </div>
                 <div>
-                  <label htmlFor="contact" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="contact"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     البريد الإلكتروني أو رقم الهاتف *
                   </label>
                   <input
@@ -124,7 +130,10 @@ ${formData.description}
               {/* Row 2: University & Service Type */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="university" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="university"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     الجامعة / التخصص *
                   </label>
                   <input
@@ -135,11 +144,14 @@ ${formData.description}
                     onChange={handleInputChange}
                     required
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                    placeholder="مثال: جامعة الملك سعود - إدارة أعمال"
+                    placeholder="مثال: جامعة عنابة باجي مختار "
                   />
                 </div>
                 <div>
-                  <label htmlFor="serviceType" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="serviceType"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     نوع الخدمة *
                   </label>
                   <select
@@ -161,7 +173,10 @@ ${formData.description}
               {/* Row 3: Title & Deadline */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="title" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="title"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     عنوان المشروع *
                   </label>
                   <input
@@ -176,7 +191,10 @@ ${formData.description}
                   />
                 </div>
                 <div>
-                  <label htmlFor="deadline" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="deadline"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     الموعد النهائي للتسليم *
                   </label>
                   <input
@@ -193,7 +211,10 @@ ${formData.description}
 
               {/* Description */}
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-foreground mb-2"
+                >
                   تفاصيل المشروع *
                 </label>
                 <textarea
@@ -206,27 +227,6 @@ ${formData.description}
                   className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none resize-none"
                   placeholder="اكتب تفاصيل المشروع هنا... (عدد الشرائح، المحتوى المطلوب، ملاحظات خاصة)"
                 />
-              </div>
-
-              {/* File Upload */}
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  إرفاق ملف (اختياري)
-                </label>
-                <div className="relative">
-                  <input
-                    type="file"
-                    onChange={handleFileChange}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.png"
-                  />
-                  <div className="flex items-center justify-center gap-3 px-4 py-4 border-2 border-dashed border-border rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
-                    <Upload className="w-5 h-5 text-muted-foreground" />
-                    <span className="text-muted-foreground">
-                      {fileName || "اسحب الملف هنا أو اضغط للاختيار"}
-                    </span>
-                  </div>
-                </div>
               </div>
 
               {/* Submit Button */}
@@ -251,7 +251,7 @@ ${formData.description}
               {/* Note */}
               <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
                 <CheckCircle className="w-4 h-4 text-success" />
-                سيتم التواصل معك خلال 24 ساعة كحد أقصى
+                سيتم التواصل معك خلال 24 ساعة كحد أقصى بإذن الله
               </p>
             </form>
           </div>
